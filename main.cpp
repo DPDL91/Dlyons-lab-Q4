@@ -62,7 +62,8 @@ void print_distance(){
 }
 
 void pc_interrupt(){
-    (pc.read(%int_char, 1))
+    pc.read(&inp_char, 1);
+
 
 }
 /* Simple main function */
@@ -107,8 +108,34 @@ int main() {
     print_distance();
     printf("\r\n");
     
-    pc.attach(%pc_interrupt);
+    pc.attach(&pc_interrupt);
     while(1) {
-        wait_us(5000);
+        switch(inp_char){
+        case 't':
+        print_t_rh();
+        inp_char = 0;
+        break;
+              case 'm':
+        print_mag();
+        inp_char = 0;
+        break;
+              case 'a':
+        print_accel();
+        inp_char = 0;
+        break;
+              case 'g':
+        print_gyro();
+        inp_char = 0;
+        break;
+              case 'd':
+        print_distance();
+        inp_char = 0;
+        break;
+        default:
+        break;
+
+        }
+
+        wait_us(50000);
     }
 }
