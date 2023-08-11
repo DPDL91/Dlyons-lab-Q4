@@ -18,7 +18,11 @@ static VL53L0X range(&devI2c, &shutdown_pin, PC_7, 0x52);
 static UnbufferedSerial pc(USBTX, USBRX);
 
 char inp_char = 0;
+bool buttonPressed = false;
 
+void buttonInterrupt(){
+    buttonPressed = true;
+}
 
 // functions to print sensor data
 void print_t_rh(){
